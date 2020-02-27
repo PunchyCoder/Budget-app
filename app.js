@@ -14,7 +14,7 @@ var budgetController = (function() {
 		this.id = id,
 		this.description = description;
 		this.value = value;
-	}
+	} 
 
 	var calculateTotal = function(type) {
 		var sum = 0;
@@ -61,6 +61,10 @@ var budgetController = (function() {
 
 			// Return the new element
 			return newItem;
+		},
+
+		deleteItem: function(type, id) {
+
 		},
 
 		calculateBudget: function() {
@@ -114,6 +118,7 @@ var UIController = (function() {
 		incomeLabel: '.budget__income--value',
 		expensesLabel: '.budget__expenses--value',
 		percentageLabel: '.budget__expenses--percentage',
+		container: '.container',
 
 	}
 
@@ -137,12 +142,12 @@ var UIController = (function() {
 			if(type === 'inc') {
 				element = DOMstrings.incomeContainer;
 
-				html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+				html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
 
 			} else if (type === 'exp') {
 				element = DOMstrings.expensesContainer;
 
-				html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">%percent%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+				html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">%percent%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
 			}
 			
 
@@ -197,7 +202,7 @@ var UIController = (function() {
 
 
 
-// MAIN CONTROLLER
+// GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl) {
 
 	var setupEventListeners = function() {
@@ -210,7 +215,11 @@ var controller = (function(budgetCtrl, UICtrl) {
 				ctrlAddItem();
 			}
 		})
+
+		document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem)
+
 	}
+
 
 	var updateBudget = function() {
 
@@ -255,6 +264,34 @@ var controller = (function(budgetCtrl, UICtrl) {
 			console.log("it works..")
 
 		};
+
+	}
+
+	var ctrlDeleteItem = function(e) {
+		var itemID, splitID, type, ID;
+
+		itemID = e.target.parentNode.parentNode.parentNode.parentNode.id;
+
+		if (itemID) {
+
+			//inc-1
+			splitID = itemID.split('-');
+			item = splitID[0];
+			ID = splitID[1];
+
+
+			// Delete the item from the data structure
+
+
+			// Delete the item from the UI
+
+
+			// Update and show the new budget
+
+
+
+		}
+
 
 	} 
 
